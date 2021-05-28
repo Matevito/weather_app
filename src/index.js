@@ -3,28 +3,38 @@
 const W_API_KEY = "88d36c3bc23d2b771a07f19c1af0a6a3";
 
 async function get_todayWeather(city) {
-  const api_key =
+  const c_api_key =
     "http://api.openweathermap.org/data/2.5/weather?q=" +
     city +
-    "&appid=" +
+    "&units=metric&appid=" +
+    W_API_KEY;
+  const f_api_key =
+    "http://api.openweathermap.org/data/2.5/weather?q=" +
+    city +
+    "&units=imperial&appid=" +
     W_API_KEY;
 
   try {
-    const response = await fetch(api_key, { mode: "cors" });
-    let w_data = await response.json();
-
+    let c_response = await fetch(c_api_key, { mode: "cors" });
     //fetch does not throw error with cod.404
-    if (!response.ok) throw new Error("Request failed.");
+    if (!c_response.ok) throw new Error("Request failed.");
+    let f_response = await fetch(f_api_key, { mode: "cors" });
+    if (!f_response.ok) throw new Error("Request failed.");
 
-    print_data(w_data);
+    let Cw_data = await c_response.json();
+    let fw_data = await f_response.json();
+    clean_error();
+
+    //TODO pUT IT LIKE PROMISE ALL
+    print_data(Cw_data);
   } catch (error) {
-    //todo: print data not found in dom
     print_error();
   }
 }
 
 function print_data(data) {
   console.log(data);
+  let container = document.getElementById("display_container");
 }
 
 /*todo:
@@ -36,13 +46,11 @@ function clean_error() {
 }
 function print_error() {
   let error = document.getElementById("error");
-  error.textContent =
-    "Error fetching the data... try again with a real city name!";
+  error.textContent = "An error happened. Try with a real city";
 }
 
 let search_btn = document.getElementById("search");
 search_btn.addEventListener("click", () => {
-  clean_error();
   let city_input = document.querySelector("input").value;
   get_todayWeather(city_input);
 });
