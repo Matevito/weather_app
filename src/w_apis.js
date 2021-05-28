@@ -25,7 +25,7 @@ async function get_todayWeather(city) {
 
     let Cw_data = await c_response.json();
     let fw_data = await f_response.json();
-    dom_manipulation.print_data(Cw_data, fw_data);
+    dom_manipulation.build_app(Cw_data, fw_data);
   } catch (error) {
     dom_manipulation.print_error();
   }
