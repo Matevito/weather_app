@@ -1,4 +1,4 @@
-import "./styles/main.css";
+import "./main.css";
 import { get_todayWeather } from "./w_apis";
 
 /*todo:
