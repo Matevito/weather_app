@@ -1,0 +1,10 @@
+body {
+  background-color: rgb(238, 238, 238);
+}
+#display_container {
+  background: rgb(209, 209, 209);
+  visibility: hidden;
+}
+footer {
+  background: rgb(77, 74, 74);
+}

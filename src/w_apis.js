@@ -27,6 +27,9 @@ async function get_todayWeather(city) {
     let fw_data = await f_response.json();
     dom_manipulation.build_app(Cw_data, fw_data);
   } catch (error) {
+    let container = document.getElementById("display_container");
+    container.style.visibility = "hidden";
+
     dom_manipulation.print_error();
   }
 }
